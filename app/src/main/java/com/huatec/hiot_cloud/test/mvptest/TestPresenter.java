@@ -11,6 +11,7 @@ public class TestPresenter extends BasePresenter<TestView> {
 
     @Inject
     ThirdObj thirdObj;
+
     @Inject
     public TestPresenter() {
 
