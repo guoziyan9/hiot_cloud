@@ -16,27 +16,30 @@ import retrofit2.http.Query;
  */
 public interface TestRetrofitService {
 
-     //public static final String basUrl = "http://14.215.177.38/";
-   public static final String basUrl = "http://114.67.88.191:8080/";
+    //  public static final String basUrl = "http://14.215.177.38/";
+    public static final String basUrl = "http://114.67.88.191:8080/";
 
     @GET("/")
     Call<ResponseBody> test();
 
     @POST("/auth/login")
-    Call<ResponseBody> login(@Query( "username" )String userName, @Query( "password" )String password,
-                             @Query( "loginCode" )String loginCode);
+    Call<ResponseBody> login(@Query("username") String userName, @Query("password") String password,
+                             @Query("loginCode") String loginCode);
 
     @POST("/auth/login")
     @FormUrlEncoded
-    Call<ResponseBody> login2(@Field( "username" ) String userName, @Field( "password" ) String password,
-                              @Field( "loginCode" ) String loginCode);
+    Call<ResponseBody> login2(@Field("username") String userName, @Field("password") String password,
+                              @Field("loginCode") String loginCode);
 
     @GET("/user/one")
-    Call<ResponseBody> getUserInfo(@Header( "Authorization" )String authorization);
+    Call<ResponseBody> getUserInfo(@Header("Authorization") String authorization);
+
+    @GET("/user/one")
+    Call<ResultBase<UserBean>> getUserInfo2(@Header("Authorization") String authorization);
 
     @PUT("/user/email")
-    Call<ResponseBody> updateEmail(@Header( "Authorization")String authorization,
-                                   @Query( "email" )String email);
+    Call<ResponseBody> updateEmail(@Header("Authorization") String authorization,
+                                   @Query("email") String email);
 
     @POST("/user/register")
     Call<ResponseBody> register(@Body UserBean userBean);

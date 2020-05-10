@@ -6,10 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.huatec.hiot_cloud.R;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,13 +29,19 @@ public class TestRetrofitActivity extends AppCompatActivity {
     private Retrofit retrofit;
     private TestRetrofitService service;
 
+    private Gson gson = new Gson();
+    private EditText etToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_test_retrofit );
 
+        //取到edit_token
+        etToken = findViewById( R.id.et_token_retrofit );
+
         //创建retrofit对象和service对象
-       createRetrofit();
+        createRetrofit();
         //百度
         Button btnTest = findViewById( R.id.btn_retrofit_enqueue );
         btnTest.setOnClickListener( new View.OnClickListener() {
@@ -46,7 +57,7 @@ public class TestRetrofitActivity extends AppCompatActivity {
         btnLogin.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login2("apptest","abc123","app");
+                login( "jiandan", "jiandan123", "app" );
 
             }
         } );
@@ -57,7 +68,7 @@ public class TestRetrofitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                getUserInfo("58d2e00d4def465d901394b67094dee4_9626bb7cd1824118aa777aaf8f062813_use");
+                getUserInfo( "2bbd3f1e2b0148a2a3600d3160a280ec_12e301da9224409288f1c69705f7a8d5_use" );
             }
         } );
 
@@ -67,8 +78,8 @@ public class TestRetrofitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                updateEmail("58d2e00d4def465d901394b67094dee4_9626bb7cd1824118aa777aaf8f062813_use",
-                        "testemail171@qq.com");
+                updateEmail( "2bbd3f1e2b0148a2a3600d3160a280ec_f1f418cc9f3d4aa1ac74cc3161abc068_use",
+                        "testemail171@qq.com" );
             }
         } );
 
@@ -88,49 +99,70 @@ public class TestRetrofitActivity extends AppCompatActivity {
      */
     private void register() {
         UserBean userBean = new UserBean();
-        userBean.setUsername( "apptest0" );
-        userBean.setEmail( "app2@qq.com" );
-        userBean.setPassword( "xyz123" );
+        userBean.setUsername( "jian" );
+        userBean.setEmail( "162email@qq.com" );
+        userBean.setPassword( "jian123" );
         userBean.setUserType( "1" );
-        service.register(  userBean);
+        service.register( userBean );
         Call<ResponseBody> call = service.register( userBean );
         callEnqueue( call );
     }
 
     /**
      * 修改邮箱
+     *
      * @param authorization
      * @param email
      */
     private void updateEmail(String authorization, String email) {
-      Call<ResponseBody> call = service.updateEmail( authorization, email );
-      callEnqueue( call );
+        Call<ResponseBody> call = service.updateEmail( authorization, email );
+        callEnqueue( call );
     }
 
     /**
      * 用户信息
+     *
      * @param authorization
      */
     private void getUserInfo(String authorization) {
-            Call<ResponseBody> call = service.getUserInfo( authorization );
-        callEnqueue( call );
-        }
+    //    Call<ResponseBody> call = service.getUserInfo( authorization );
+      //  callEnqueueUserInfo( call );
+       Call<ResultBase<UserBean>> call = service.getUserInfo2( authorization );
+       call.enqueue( new Callback<ResultBase<UserBean>>() {
+           @Override
+           public void onResponse(Call<ResultBase<UserBean>> call, Response<ResultBase<UserBean>> response) {
+              ResultBase<UserBean> resultBase = response.body();
+              if (resultBase != null && resultBase.getData() != null){
+                  resultBase.getData();
+                  String str = resultBase.getData().getUsername() + "," + resultBase.getData().getEmail();
+                  Toast.makeText( TestRetrofitActivity.this, str, Toast.LENGTH_SHORT ).show();
+              }
+           }
+
+           @Override
+           public void onFailure(Call<ResultBase<UserBean>> call, Throwable t) {
+
+           }
+       } );
+    }
 
 
     /**
      * 登录
+     *
      * @param userName
      * @param password
      * @param loginCode
      */
     private void login(String userName, String password, String loginCode) {
         Call<ResponseBody> call = service.login( userName, password, loginCode );
-        callEnqueue( call );
+        callEnqueueLogin( call );
     }
 
 
     /**
      * 另一种登录接口方式
+     *
      * @param userName
      * @param password
      * @param loginCode
@@ -141,7 +173,7 @@ public class TestRetrofitActivity extends AppCompatActivity {
     }
 
     private void test() {
-      Call<ResponseBody> call = service.test();
+        Call<ResponseBody> call = service.test();
         callEnqueue( call );
     }
 
@@ -165,7 +197,65 @@ public class TestRetrofitActivity extends AppCompatActivity {
         } );
     }
 
-    private void createRetrofit(){
+
+    private void callEnqueueLogin(Call<ResponseBody> call) {
+        call.enqueue( new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    //  Log.d( TAG, "onResponse: " + response.body().string() );
+                    Type type = new TypeToken<ResultBase<LoginResultDTO>>() {
+                    }.getType();
+                    ResultBase<LoginResultDTO> loginResult = gson.fromJson( response.body().toString(), type );
+                    if (loginResult != null && loginResult.getData() != null) {
+                        String token = loginResult.getData().getTokenValue();
+                        etToken.setText( token );
+
+                    }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e( TAG, "onFailure: " + t.getMessage(), t );
+
+            }
+        } );
+    }
+
+
+    private void callEnqueueUserInfo(Call<ResponseBody> call) {
+        call.enqueue( new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    // Log.d( TAG, "onResponse: " + response.body().string() );
+                    Type type = new TypeToken<ResultBase<UserBean>>() {
+                    }.getType();
+                    ResultBase<UserBean> resultBase = gson.fromJson( response.body().string(), type );
+                    if (resultBase != null && resultBase.getData() != null) {
+                        UserBean userBean = resultBase.getData();
+                        String str = String.format( "用户名：%s，密码：%s，email：%s，用户类型：%s",
+                                userBean.getUsername(), userBean.getPassword(), userBean.getEmail(), userBean.getUserType() );
+
+                        Toast.makeText( TestRetrofitActivity.this, str, Toast.LENGTH_SHORT ).show();
+                    }
+                  //  if (resultBase != null && resultBase.getMsg() != null) {
+                //        Toast.makeText( TestRetrofitActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
+              //      }
+                } catch (IOException e) {
+                    Log.e( TAG, "onResponse: " + e.getMessage(), e );
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e( TAG, "onFailure: " + t.getMessage(), t );
+
+            }
+        } );
+    }
+
+    private void createRetrofit() {
         retrofit = new Retrofit.Builder().baseUrl( TestRetrofitService.basUrl )
                 .addConverterFactory( GsonConverterFactory.create() ).build();
 

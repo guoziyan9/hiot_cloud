@@ -27,8 +27,8 @@ import okhttp3.Response;
 public class TestOkHttpActivity extends AppCompatActivity {
 
 
-    // private static final String basUrl = "http://14.215.177.38";
-    private static final String basUrl = "http://114.67.88.191:8080";
+     //private static final String basUrl = "http://14.215.177.38";
+   private static final String basUrl = "http://114.67.88.191:8080";
     private static final String TAG = "TestOkHttpActivity";
 
     @Override
@@ -60,7 +60,7 @@ public class TestOkHttpActivity extends AppCompatActivity {
         btnLogin.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login( "apptest", "abc123", "app" );
+                login( "jiandan", "jiandan123", "app" );
 
             }
         } );
@@ -69,7 +69,7 @@ public class TestOkHttpActivity extends AppCompatActivity {
         btnGetUserInfo.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getUserInfo( "58d2e00d4def465d901394b67094dee4_7b64c0596aab4e27ab9f7df2fe0f0edb_use" );
+                getUserInfo( "2bbd3f1e2b0148a2a3600d3160a280ec_361e9eecfceb423d81a108c0766cd8d6_use" );
 
             }
         } );
@@ -78,7 +78,7 @@ public class TestOkHttpActivity extends AppCompatActivity {
         btnUpdateEmail.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEmail( "58d2e00d4def465d901394b67094dee4_7b64c0596aab4e27ab9f7df2fe0f0edb_use",
+                updateEmail( "2bbd3f1e2b0148a2a3600d3160a280ec_361e9eecfceb423d81a108c0766cd8d6_use",
                         "qq171email@qq.com" );
 
             }
