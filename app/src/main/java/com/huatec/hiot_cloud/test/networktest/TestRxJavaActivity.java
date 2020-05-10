@@ -68,6 +68,8 @@ public class TestRxJavaActivity extends AppCompatActivity {
         btnUpdateEmail.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateEmail("2bbd3f1e2b0148a2a3600d3160a280ec_2bab61d7beb2480fa88ee8f6a56a7558_use",
+                        "wulian2@qq.com");
 
             }
         } );
@@ -78,8 +80,93 @@ public class TestRxJavaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                register();
             }
         } );
+    }
+
+    /**
+     * 用户注册
+     * @param
+     */
+    private void register() {
+        UserBean userBean = new UserBean();
+        userBean.setUsername( "gzy" );
+        userBean.setEmail( "gzyemail@qq.com" );
+        userBean.setPassword( "gzy123" );
+        userBean.setUserType( "1" );
+        service.register( userBean )
+                .subscribeOn( Schedulers.io() )
+                .observeOn( AndroidSchedulers.mainThread() )
+                .subscribe( new Observer<ResultBase<UserBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResultBase<UserBean> resultBase) {
+                        if (resultBase != null && resultBase.getData() != null){
+                            UserBean userBean1 =resultBase.getData();
+                            String str1 = String.format( "用户名：%s，email：%s，密码：%s，用户类型：%s",
+                                    userBean1.getUsername(),userBean1.getEmail(),userBean1.getPassword(),userBean1.getUserType() );
+                            Toast.makeText( TestRxJavaActivity.this, str1, Toast.LENGTH_SHORT ).show();
+                        }
+                        if(resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )){
+                            Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                } );
+    }
+
+    /**
+     * 修改邮箱
+     * @param authorization
+     * @param email
+     */
+    private void updateEmail(String authorization, String email) {
+        Observable<ResultBase<String>> observable = service.updateEmail( authorization,email );
+        observable.observeOn( AndroidSchedulers.mainThread() ).subscribeOn( Schedulers.io() )
+                .subscribe( new Observer<ResultBase<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResultBase<String> resultBase) {
+                        if (resultBase !=null && resultBase.getData() != null){
+                            String string = resultBase.getData();
+                            String str = String.format( "email：%s", string);
+                            Toast.makeText( TestRxJavaActivity.this, str, Toast.LENGTH_SHORT ).show();
+                        }
+                        if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )){
+                            Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                } );
     }
 
     /**
@@ -87,38 +174,38 @@ public class TestRxJavaActivity extends AppCompatActivity {
      * @param authorization
      */
     private void getUserInfo(String authorization) {
-      Observable<ResultBase<UserBean>> observable = service.getUserInfo( authorization );
-      observable.observeOn( AndroidSchedulers.mainThread() ).subscribeOn( Schedulers.io() )
-              .subscribe( new Observer<ResultBase<UserBean>>() {
-                  @Override
-                  public void onSubscribe(Disposable d) {
+        Observable<ResultBase<UserBean>> observable = service.getUserInfo( authorization );
+        observable.observeOn( AndroidSchedulers.mainThread() ).subscribeOn( Schedulers.io() )
+                .subscribe( new Observer<ResultBase<UserBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                  }
+                    }
 
-                  @Override
-                  public void onNext(ResultBase<UserBean> resultBase) {
-                      if (resultBase != null && resultBase.getData() != null){
-                          UserBean userBean = resultBase.getData();
-                          String str = String.format( "用户：%s，email：%s",
-                                  userBean.getUsername(),userBean.getEmail() );
-                          Toast.makeText( TestRxJavaActivity.this, str, Toast.LENGTH_SHORT ).show();
-                      }
-                     else if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )){
-                          Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
-                      }
+                    @Override
+                    public void onNext(ResultBase<UserBean> resultBase) {
+                        if (resultBase != null && resultBase.getData() != null){
+                            UserBean userBean = resultBase.getData();
+                            String str = String.format( "用户：%s，email：%s",
+                                    userBean.getUsername(),userBean.getEmail() );
+                            Toast.makeText( TestRxJavaActivity.this, str, Toast.LENGTH_SHORT ).show();
+                        }
+                        else if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )){
+                            Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
+                        }
 
-                  }
+                    }
 
-                  @Override
-                  public void onError(Throwable e) {
+                    @Override
+                    public void onError(Throwable e) {
 
-                  }
+                    }
 
-                  @Override
-                  public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                  }
-              } );
+                    }
+                } );
     }
 
     /**
