@@ -60,4 +60,19 @@ public interface NetService {
      */
     @POST("/user/register")
     Observable<ResultBase<UserBean>> register(@Body UserBean userBean);
+
+
+    /**
+     * 修改密码
+     * @param authorization
+     * @param oldpassword
+     * @param newpassword
+     * @param confirmpassword
+     * @return
+     */
+    @PUT("/user/password")
+    Observable<ResultBase<String>> updatePassword(@Header("Authorization") String authorization,
+                                               @Query("oldpassword") String oldpassword,
+                                                  @Query( "newpassword" ) String newpassword,
+                                                  @Query( "confirmpassword" ) String confirmpassword);
 }

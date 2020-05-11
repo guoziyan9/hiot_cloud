@@ -15,6 +15,7 @@ public class UserBean implements Serializable {
 
     private String userType;
 
+
     public String getUsername() {
         return username;
     }

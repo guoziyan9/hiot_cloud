@@ -49,7 +49,7 @@ public class TestRxJavaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                login("jiandan","jiandan123");
+                login( "jiandan", "jian11" );
             }
         } );
 
@@ -58,7 +58,7 @@ public class TestRxJavaActivity extends AppCompatActivity {
         btnUserInfo.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getUserInfo(etToken.getText().toString());
+                getUserInfo( etToken.getText().toString() );
 
             }
         } );
@@ -68,8 +68,8 @@ public class TestRxJavaActivity extends AppCompatActivity {
         btnUpdateEmail.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEmail("2bbd3f1e2b0148a2a3600d3160a280ec_2bab61d7beb2480fa88ee8f6a56a7558_use",
-                        "wulian2@qq.com");
+                updateEmail( "2bbd3f1e2b0148a2a3600d3160a280ec_001053df7ba24b679fc6b05dbdb47c6b_use",
+                        "jiandan123@qq.com" );
 
             }
         } );
@@ -83,17 +83,71 @@ public class TestRxJavaActivity extends AppCompatActivity {
                 register();
             }
         } );
+
+        //修改密码
+        final Button btnUpdatePassword = findViewById( R.id.btn_rxjava_update_password );
+        btnUpdatePassword.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updatePassword( "2bbd3f1e2b0148a2a3600d3160a280ec_ae2079e8b77141c6955d87387329e1c6_use",
+                        "jian09",
+                        "jian11",
+                        "jian11" );
+            }
+        } );
+    }
+
+    /**
+     * 修改密码
+     * @param authorization
+     * @param oldpassword
+     * @param newpassword
+     * @param confirmpassword
+     */
+    private void updatePassword(String authorization, String oldpassword, String newpassword, String confirmpassword) {
+        Observable<ResultBase<String>> observable = service.updatePassword( authorization,oldpassword,newpassword,confirmpassword );
+        observable.observeOn( AndroidSchedulers.mainThread() ).subscribeOn( Schedulers.io() )
+                .subscribe( new Observer<ResultBase<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResultBase<String> resultBase) {
+                        if (resultBase != null && resultBase.getData() != null){
+                            String string1 = resultBase.getData();
+                            String str2 = String.format( "新密码：%s", string1);
+                            Toast.makeText( TestRxJavaActivity.this, str2, Toast.LENGTH_SHORT ).show();
+                        }
+                        if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )) {
+                            Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
+                        }
+
+                        }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                } );
     }
 
     /**
      * 用户注册
+     *
      * @param
      */
     private void register() {
         UserBean userBean = new UserBean();
-        userBean.setUsername( "gzy" );
-        userBean.setEmail( "gzyemail@qq.com" );
-        userBean.setPassword( "gzy123" );
+        userBean.setUsername( "gzy009" );
+        userBean.setEmail( "gzy009email@qq.com" );
+        userBean.setPassword( "gzy1234" );
         userBean.setUserType( "1" );
         service.register( userBean )
                 .subscribeOn( Schedulers.io() )
@@ -106,13 +160,13 @@ public class TestRxJavaActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResultBase<UserBean> resultBase) {
-                        if (resultBase != null && resultBase.getData() != null){
-                            UserBean userBean1 =resultBase.getData();
+                        if (resultBase != null && resultBase.getData() != null) {
+                            UserBean userBean1 = resultBase.getData();
                             String str1 = String.format( "用户名：%s，email：%s，密码：%s，用户类型：%s",
-                                    userBean1.getUsername(),userBean1.getEmail(),userBean1.getPassword(),userBean1.getUserType() );
+                                    userBean1.getUsername(), userBean1.getEmail(), userBean1.getPassword(), userBean1.getUserType() );
                             Toast.makeText( TestRxJavaActivity.this, str1, Toast.LENGTH_SHORT ).show();
                         }
-                        if(resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )){
+                        if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )) {
                             Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
                         }
 
@@ -132,11 +186,12 @@ public class TestRxJavaActivity extends AppCompatActivity {
 
     /**
      * 修改邮箱
+     *
      * @param authorization
      * @param email
      */
     private void updateEmail(String authorization, String email) {
-        Observable<ResultBase<String>> observable = service.updateEmail( authorization,email );
+        Observable<ResultBase<String>> observable = service.updateEmail( authorization, email );
         observable.observeOn( AndroidSchedulers.mainThread() ).subscribeOn( Schedulers.io() )
                 .subscribe( new Observer<ResultBase<String>>() {
                     @Override
@@ -146,12 +201,12 @@ public class TestRxJavaActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResultBase<String> resultBase) {
-                        if (resultBase !=null && resultBase.getData() != null){
+                        if (resultBase != null && resultBase.getData() != null) {
                             String string = resultBase.getData();
-                            String str = String.format( "email：%s", string);
+                            String str = String.format( "email：%s", string );
                             Toast.makeText( TestRxJavaActivity.this, str, Toast.LENGTH_SHORT ).show();
                         }
-                        if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )){
+                        if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )) {
                             Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
                         }
 
@@ -171,6 +226,7 @@ public class TestRxJavaActivity extends AppCompatActivity {
 
     /**
      * 获取用户信息
+     *
      * @param authorization
      */
     private void getUserInfo(String authorization) {
@@ -184,13 +240,12 @@ public class TestRxJavaActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResultBase<UserBean> resultBase) {
-                        if (resultBase != null && resultBase.getData() != null){
+                        if (resultBase != null && resultBase.getData() != null) {
                             UserBean userBean = resultBase.getData();
                             String str = String.format( "用户：%s，email：%s",
-                                    userBean.getUsername(),userBean.getEmail() );
+                                    userBean.getUsername(), userBean.getEmail() );
                             Toast.makeText( TestRxJavaActivity.this, str, Toast.LENGTH_SHORT ).show();
-                        }
-                        else if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )){
+                        } else if (resultBase != null && !TextUtils.isEmpty( resultBase.getMsg() )) {
                             Toast.makeText( TestRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT ).show();
                         }
 
@@ -210,11 +265,12 @@ public class TestRxJavaActivity extends AppCompatActivity {
 
     /**
      * 登录
+     *
      * @param userName
      * @param password
      */
     private void login(String userName, String password) {
-        service.login( userName,password,"app" )
+        service.login( userName, password, "app" )
                 .subscribeOn( Schedulers.io() )
                 .observeOn( AndroidSchedulers.mainThread() )
                 .subscribe( new Observer<ResultBase<LoginResultDTO>>() {
