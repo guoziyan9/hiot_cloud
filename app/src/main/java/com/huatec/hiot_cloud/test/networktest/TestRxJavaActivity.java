@@ -68,8 +68,8 @@ public class TestRxJavaActivity extends AppCompatActivity {
         btnUpdateEmail.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEmail( "2bbd3f1e2b0148a2a3600d3160a280ec_001053df7ba24b679fc6b05dbdb47c6b_use",
-                        "jiandan123@qq.com" );
+                updateEmail( etToken.getText().toString(),
+                        "jiandan@qq.com" );
 
             }
         } );
@@ -79,7 +79,6 @@ public class TestRxJavaActivity extends AppCompatActivity {
         btnRegister.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 register();
             }
         } );
@@ -89,7 +88,7 @@ public class TestRxJavaActivity extends AppCompatActivity {
         btnUpdatePassword.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updatePassword( "2bbd3f1e2b0148a2a3600d3160a280ec_ae2079e8b77141c6955d87387329e1c6_use",
+                updatePassword( etToken.getText().toString(),
                         "jian09",
                         "jian11",
                         "jian11" );
@@ -145,8 +144,8 @@ public class TestRxJavaActivity extends AppCompatActivity {
      */
     private void register() {
         UserBean userBean = new UserBean();
-        userBean.setUsername( "gzy009" );
-        userBean.setEmail( "gzy009email@qq.com" );
+        userBean.setUsername( "gzy123" );
+        userBean.setEmail( "gzy123email@qq.com" );
         userBean.setPassword( "gzy1234" );
         userBean.setUserType( "1" );
         service.register( userBean )
