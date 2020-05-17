@@ -20,7 +20,7 @@ class Student implements Serializable {
     /**
      * 婚姻状况
      */
- //   private boolean married;
+    // private boolean married;
 
     /**
      * 毕业情况
@@ -50,21 +50,21 @@ class Student implements Serializable {
         this.name = name;
     }
 
-  //  public int getAge() {
-  //      return age;
-    //}
-
- //   public void setAge(int age) {
-   //     this.age = age;
- //   }
-
- //   public boolean isMarried() {
- //       return married;
-   // }
-
-   // public void setMarried(boolean married) {
-     //   this.married = married;
-    //}
+//    public int getAge() {
+//        return age;
+//    }
+//
+//    public void setAge(int age) {
+//        this.age = age;
+//    }
+//
+//    public boolean isMarried() {
+//        return married;
+//    }
+//
+//    public void setMarried(boolean married) {
+//        this.married = married;
+//    }
 
 
     public boolean isGraduated() {

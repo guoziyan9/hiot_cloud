@@ -1,22 +1,18 @@
 package com.huatec.hiot_cloud.test.networktest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.huatec.hiot_cloud.R;
 
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
 
 public class TestGsonoActivity extends AppCompatActivity {
 
@@ -88,8 +84,8 @@ public class TestGsonoActivity extends AppCompatActivity {
 //                        "\t\t\"name\": \"李四\"\n" +
 //                        "\t},\n" +
 //                        "\t{\n" +
-//                        "\t\t\"age\": 22,\n" +
-//                        "\t\t\"married\": false,\n" +
+//                       "\t\t\"age\": 22,\n" +
+//                       "\t\t\"married\": false,\n" +
 //                        "\t\t\"name\": \"王五\"\n" +
 //                        "\t}\n" +
 //                        "]";
@@ -101,7 +97,6 @@ public class TestGsonoActivity extends AppCompatActivity {
 //                    for (Student student : studentList) {
 //                        str = str + String.format( "姓名：%s,年龄：%d,婚否：%b",
 //                                student.getName(), student.getAge(), student.isMarried() );
-//
 //                    }
 //                    Toast.makeText( TestGsonoActivity.this, str, Toast.LENGTH_SHORT ).show();
 //                }
