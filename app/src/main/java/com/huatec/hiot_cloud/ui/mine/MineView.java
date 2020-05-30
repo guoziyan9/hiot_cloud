@@ -14,4 +14,9 @@ public interface MineView extends BaseView {
      * @param userBean
      */
     void refreshUserInfo(UserBean userBean);
+
+    /**
+     * @param url
+     */
+    void refreshUserHead(String url);
 }
