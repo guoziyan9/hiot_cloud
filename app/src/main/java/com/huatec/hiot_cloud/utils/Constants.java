@@ -55,4 +55,9 @@ public class Constants {
      * form-data类型
      */
     public static final String MULTIPART_FORM_DATA = "multipart/form-data";
+
+    /**
+     * token失效状态
+     */
+    public static final int MSG_STATUS_TOKEN_OUT = -100;
 }
