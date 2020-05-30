@@ -7,6 +7,9 @@ import java.io.Serializable;
  */
 public class UserBean implements Serializable {
 
+    /**
+     * 用户名
+     */
     private String username;
 
     private String email;
@@ -14,6 +17,11 @@ public class UserBean implements Serializable {
     private String password;
 
     private String userType;
+
+    /**
+     * 用户头像相对路径
+     */
+    private String img;
 
 
     public String getUsername() {
@@ -46,5 +54,13 @@ public class UserBean implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
