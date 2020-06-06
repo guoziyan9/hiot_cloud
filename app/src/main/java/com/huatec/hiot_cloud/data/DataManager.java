@@ -79,6 +79,22 @@ public class DataManager {
     }
 
     /**
+     * 修改密码
+     *
+     * @param oldpassword
+     * @param newpassword
+     * @param confirmpassword
+     * @return
+     */
+
+    public Observable<ResultBase<String>> updatePassword(String oldpassword,
+                                                         String newpassword,
+                                                         String confirmpassword) {
+
+        return service.updatePassword( sharedPreferencesHelper.getUserToken(), oldpassword, newpassword, confirmpassword );
+    }
+
+    /**
      * 注册
      *
      * @param userName 用户名
@@ -121,4 +137,34 @@ public class DataManager {
                     }
                 } );
     }
+
+
+    /**
+     * 界面跳转后修改邮箱
+     *
+     * @param email
+     * @return
+     */
+    public Observable<ResultBase<String>> changeEmail(String email) {
+        return service.updateEmail( sharedPreferencesHelper.getUserToken(), email );
+    }
+
+
+    /**
+     * 我的界面的修改密码
+     */
+
+    public Observable<ResultBase<String>> GPassword(String oldpassword,
+                                                    String newpassword,
+                                                    String confirmpassword) {
+
+        return service.updatePassword( sharedPreferencesHelper.getUserToken(), oldpassword, newpassword, confirmpassword )
+                .doOnNext( new Consumer<ResultBase<String>>() {
+                    @Override
+                    public void accept(ResultBase<String> resultBase) throws Exception {
+
+                    }
+                } );
+    }
+
 }

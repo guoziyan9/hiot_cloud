@@ -24,4 +24,15 @@ public interface MineView extends BaseView {
      * 重新登录的处理
      */
     void tokenOut();
+
+    /**
+     * 修改邮箱的处理
+     */
+
+    void changeUserEmail();
+
+    /**
+     * 修改密码的处理
+     */
+    void changeUserPassword();
 }

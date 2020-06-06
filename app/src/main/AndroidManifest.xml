@@ -31,6 +31,8 @@
         <activity android:name=".test.networktest.TestGsonoActivity" />
         <activity android:name=".test.networktest.TestRetrofitActivity" />
         <activity android:name=".test.networktest.TestOkHttpActivity" />
+        <activity android:name=".ui.ChangeEmailupdate.ChangeUserEmailActivity"></activity>
+        <activity android:name=".ui.ChangePassword.ChangeUserPasswordActivity"></activity>
         <activity android:name=".test.lifecycletest.TestLifeCycleActivity" />
         <activity android:name=".test.mvptest.TestMVPActivity" />
         <activity

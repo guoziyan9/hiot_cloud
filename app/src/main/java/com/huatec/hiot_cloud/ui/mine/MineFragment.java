@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 
 import com.huatec.hiot_cloud.R;
 import com.huatec.hiot_cloud.test.networktest.UserBean;
+import com.huatec.hiot_cloud.ui.ChangeEmailupdate.ChangeUserEmailActivity;
+import com.huatec.hiot_cloud.ui.ChangePassword.ChangeUserPasswordActivity;
 import com.huatec.hiot_cloud.ui.base.BaseActivity;
 import com.huatec.hiot_cloud.ui.base.BaseFragment;
 import com.huatec.hiot_cloud.ui.login.LoginActivity;
@@ -106,14 +108,17 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
                 checkPermission();
                 break;
             case R.id.tv_user_center_update_password:
+                changeUserPassword();
                 break;
             case R.id.tv_user_center_update_email:
+                changeUserEmail();
                 break;
             case R.id.btn_logout:
                 presenter.logout();
                 break;
         }
     }
+
 
     /**
      * 动态授权
@@ -223,6 +228,24 @@ public class MineFragment extends BaseFragment<MineView, MinePresenter> implemen
     @Override
     public void tokenOut() {
         Intent intent = new Intent( getActivity(), LoginActivity.class );
+        startActivity( intent );
+        getActivity().finish();
+    }
+
+    /**
+     * 修改邮箱
+     */
+    public void changeUserEmail() {
+        Intent intent = new Intent( getActivity(), ChangeUserEmailActivity.class );
+        startActivity( intent );
+        getActivity().finish();
+    }
+
+    /**
+     * 修改密码
+     */
+    public void changeUserPassword() {
+        Intent intent = new Intent( getActivity(), ChangeUserPasswordActivity.class );
         startActivity( intent );
         getActivity().finish();
     }

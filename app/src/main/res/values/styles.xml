@@ -48,4 +48,16 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+
+    <!--用户中心修改邮箱框属性-->
+    <style name="UserCenterEmailViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
