@@ -9,7 +9,7 @@ import com.huatec.hiot_cloud.ui.base.BasePresenter;
 import javax.inject.Inject;
 
 
-public class ChangeUserEmailPresenter extends BasePresenter<ChangeUserEmailView> {
+class ChangeUserEmailPresenter extends BasePresenter<ChangeUserEmailView> {
 
     /**
      * 网络层封装类  作用：调用service方法来实现登录

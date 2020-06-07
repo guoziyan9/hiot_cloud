@@ -22,7 +22,9 @@ public class ChangeUserPasswordActivity extends BaseActivity<ChangeUserPasswordV
 
     @BindView(R.id.btn_change)
     Button btnChange;
+
     private EditText editText;
+
     @Inject
     DataManager dataManager;
 
@@ -35,7 +37,7 @@ public class ChangeUserPasswordActivity extends BaseActivity<ChangeUserPasswordV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_password );
+        setContentView( R.layout.activity_change_user_password );
         ButterKnife.bind( this );
 
 

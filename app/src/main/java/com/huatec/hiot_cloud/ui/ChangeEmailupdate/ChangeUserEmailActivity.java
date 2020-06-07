@@ -40,7 +40,7 @@ public class ChangeUserEmailActivity extends BaseActivity<ChangeUserEmailView, C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_change_user_email_activity );
+        setContentView( R.layout.activity_change_user_email );
         ButterKnife.bind( this );
         final EditText email = findViewById( R.id.et_email );
 

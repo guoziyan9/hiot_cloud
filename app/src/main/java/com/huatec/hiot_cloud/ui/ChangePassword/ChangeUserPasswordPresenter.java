@@ -11,7 +11,7 @@ import javax.inject.Inject;
 /**
  * 修改密码presenter类
  */
-public class ChangeUserPasswordPresenter extends BasePresenter<ChangeUserPasswordView> {
+class ChangeUserPasswordPresenter extends BasePresenter<ChangeUserPasswordView> {
     /**
      * 网络层封装类  作用：调用service方法来实现登录
      */

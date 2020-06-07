@@ -151,7 +151,7 @@ public class DataManager {
 
 
     /**
-     * 我的界面的修改密码
+     * 界面的修改密码
      */
 
     public Observable<ResultBase<String>> GPassword(String oldpassword,
@@ -165,6 +165,16 @@ public class DataManager {
 
                     }
                 } );
+    }
+
+    /**
+     * 设备绑定
+     *
+     * @param deviceId
+     * @return
+     */
+    public Observable<ResultBase> bindDevice(String deviceId) {
+        return service.bindDevice( deviceId, sharedPreferencesHelper.getUserToken() );
     }
 
 }
