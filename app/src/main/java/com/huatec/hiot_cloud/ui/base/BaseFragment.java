@@ -1,5 +1,7 @@
 package com.huatec.hiot_cloud.ui.base;
 
+import android.app.LauncherActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import butterknife.ButterKnife;
 
 /**
  * fragment模板类
@@ -31,8 +35,6 @@ public abstract class BaseFragment<V extends BaseView , P extends BasePresenter<
        View view = initView( inflater, container,savedInstanceState );
         injectDependencies();
        return view;
-
-
     }
 
     @Override
@@ -41,6 +43,8 @@ public abstract class BaseFragment<V extends BaseView , P extends BasePresenter<
         if (presenter != null){
             presenter.setView((V)this);
         }
+        ButterKnife.bind( this, view );
+        super.onViewCreated( view, savedInstanceState );
     }
 
     @Override
@@ -66,5 +70,32 @@ public abstract class BaseFragment<V extends BaseView , P extends BasePresenter<
     @Override
     public void showMessage(String message) {
         Toast.makeText( getActivity(), message, Toast.LENGTH_SHORT ).show();
+    }
+
+    /**
+     * 打开新界面，关闭本界面
+     *
+     * @param cls
+     */
+    protected void startActivity(Class<?> cls) {
+        Intent intent = new Intent( getActivity(), cls );
+        startActivity( intent );
+        getActivity().finish();
+    }
+
+    /**
+     * 打开新界面，不关闭本界面
+     *
+     * @param cls
+     */
+    protected void startActivityWithoutFinish(Class<?> cls) {
+        Intent intent = new Intent( getActivity(), cls );
+        startActivity( intent );
+
+    }
+
+    @Override
+    public void tokenOut() {
+        startActivity( LauncherActivity.class );
     }
 }
