@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.huatec.hiot_cloud.R;
-import com.huatec.hiot_cloud.test.networktest.UserBean;
+import com.huatec.hiot_cloud.data.bean.UserBean;
 import com.huatec.hiot_cloud.ui.ChangeEmailupdate.ChangeUserEmailActivity;
 import com.huatec.hiot_cloud.ui.ChangePassword.ChangeUserPasswordActivity;
 import com.huatec.hiot_cloud.ui.base.BaseActivity;
