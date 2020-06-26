@@ -22,15 +22,16 @@ import com.huatec.hiot_cloud.test.mvptest.TestMVPActivity;
 import com.huatec.hiot_cloud.test.networktest.TestNetworkPackActivity;
 import com.huatec.hiot_cloud.ui.ChangeEmailupdate.ChangeUserEmailActivity;
 import com.huatec.hiot_cloud.ui.ChangePassword.ChangeUserPasswordActivity;
-import com.huatec.hiot_cloud.ui.datastreamhistory.LineChartActivity;
 import com.huatec.hiot_cloud.ui.devicedetail.DeviceDetailActivity;
 import com.huatec.hiot_cloud.ui.devicelist.DeviceListFragment;
+import com.huatec.hiot_cloud.ui.gpsdatastreamhistory.GpsDataStreamHistoryActivity;
 import com.huatec.hiot_cloud.ui.login.LoginActivity;
 import com.huatec.hiot_cloud.ui.main.MainActivity;
 import com.huatec.hiot_cloud.ui.main.SplashActivity;
 import com.huatec.hiot_cloud.ui.mine.MineFragment;
 import com.huatec.hiot_cloud.ui.register.RegisterActivity;
 import com.huatec.hiot_cloud.ui.scan.ScanActivity;
+import com.huatec.hiot_cloud.ui.switchdatastreamhistory.LineChartActivity;
 
 import dagger.Component;
 
@@ -61,6 +62,8 @@ public interface ActivityComponent {
     void inject(DeviceDetailActivity activity);
 
     void inject(LineChartActivity activity);
+
+    void inject(GpsDataStreamHistoryActivity activity);
 
     void inject(MineFragment fragment);
 

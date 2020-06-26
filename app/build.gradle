@@ -94,4 +94,12 @@ dependencies {
     // 分包
     implementation 'androidx.multidex:multidex:2.0.0'
 
+    //高德地图SDK说明：https://lbs.amap.com/api/android-sdk/gettingstarted
+    //3D地图
+    implementation 'com.amap.api:3dmap:6.4.0'
+    //定位功能
+    implementation 'com.amap.api:location:4.2.0'
+    //搜索功能
+    implementation 'com.amap.api:search:6.1.0'
+
 }
